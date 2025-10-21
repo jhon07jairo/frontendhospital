@@ -1,0 +1,12 @@
+.container { max-width: 1100px; margin: 1rem auto; padding: 0 1rem; }
+.toolbar { margin: 0.5rem 0 1rem; }
+.status { margin: 0.5rem 0; }
+.status.error { color: #b00020; }
+.table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; }
+.table th, .table td { border: 1px solid #ddd; padding: 0.5rem; text-align: left; }
+.table th { background: #f5f5f5; }
+.form { border: 1px solid #eee; padding: 1rem; border-radius: 4px; }
+.form .row { display: flex; gap: 0.75rem; align-items: center; margin: 0.5rem 0; }
+.form .row label { width: 140px; font-weight: 600; }
+.actions { display: flex; gap: 0.5rem; margin-top: 0.75rem; }
+button { cursor: pointer; }

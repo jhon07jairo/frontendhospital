@@ -1,0 +1,96 @@
+<div class="container">
+  <h1>Pacientes</h1>
+
+  <div class="toolbar">
+    <button type="button" (click)="startCreate()">Nuevo</button>
+  </div>
+
+  <div class="status" *ngIf="loading()">Cargando...</div>
+  <div class="status error" *ngIf="error() as e">{{ e }}</div>
+
+  <table class="table" *ngIf="!loading()">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Tipo Doc</th>
+        <th>N° Doc</th>
+        <th>Nombre</th>
+        <th>Nacimiento</th>
+        <th>Correo</th>
+        <th>Género</th>
+        <th>Dirección</th>
+        <th>Teléfono</th>
+        <th>Activo</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of pacientes()">
+        <td>{{ p.id }}</td>
+        <td>{{ displayTipoDocumento(p.tipoDocumentoId) }}</td>
+        <td>{{ p.numeroDocumento }}</td>
+        <td>{{ p.nombre }}</td>
+        <td>{{ p.nacimiento | date:'yyyy-MM-dd' }}</td>
+        <td>{{ p.correo }}</td>
+        <td>{{ displayGenero(p.generoId) }}</td>
+        <td>{{ p.direccion }}</td>
+        <td>{{ p.telefono }}</td>
+        <td>{{ p.activo ? 'Sí' : 'No' }}</td>
+        <td>
+          <button type="button" (click)="startEdit(p)">Editar</button>
+          <button type="button" (click)="remove(p)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="form">
+    <h2>{{ formTitle() }}</h2>
+    <form (ngSubmit)="submit()" #f="ngForm">
+      <div class="row">
+        <label>Tipo Documento</label>
+        <select [(ngModel)]="form().tipoDocumentoId" name="tipoDocumentoId" required>
+          <option *ngFor="let t of tipoDocumentos" [ngValue]="t.id">{{ t.id }} - {{ t.name }}</option>
+        </select>
+      </div>
+      <div class="row">
+        <label>Número Documento</label>
+        <input type="text" [(ngModel)]="form().numeroDocumento" name="numeroDocumento" required />
+      </div>
+      <div class="row">
+        <label>Nombre</label>
+        <input type="text" [(ngModel)]="form().nombre" name="nombre" required />
+      </div>
+      <div class="row">
+        <label>Nacimiento</label>
+        <input type="date" [(ngModel)]="form().nacimiento" name="nacimiento" required />
+      </div>
+      <div class="row">
+        <label>Correo</label>
+        <input type="email" [(ngModel)]="form().correo" name="correo" required />
+      </div>
+      <div class="row">
+        <label>Género</label>
+        <select [(ngModel)]="form().generoId" name="generoId" required>
+          <option *ngFor="let g of generos" [ngValue]="g.id">{{ g.id }} {{ g.name }}</option>
+        </select>
+      </div>
+      <div class="row">
+        <label>Dirección</label>
+        <input type="text" [(ngModel)]="form().direccion" name="direccion" />
+      </div>
+      <div class="row">
+        <label>Teléfono</label>
+        <input type="text" [(ngModel)]="form().telefono" name="telefono" />
+      </div>
+      <div class="row">
+        <label>Activo</label>
+        <input type="checkbox" [(ngModel)]="form().activo" name="activo" />
+      </div>
+      <div class="actions">
+        <button type="submit">Guardar</button>
+        <button type="button" (click)="cancelEdit()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>
